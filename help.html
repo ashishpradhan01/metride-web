@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - Metride</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor"
+                        d="M12,2C8,2 4,2.5 4,6v9.5C4,17.43 5.57,19 7.5,19L6,20.5v0.5h2l2,-2h4l2,2h2v-0.5L16.5,19c1.93,0 3.5,-1.57 3.5,-3.5V6C20,2.5 16,2 12,2zM7.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5S6.67,14 7.5,14s1.5,0.67 1.5,1.5S8.33,17 7.5,17zM11,10H6V6h5V10zM13,10V6h5v4H13zM16.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5s1.5,0.67 1.5,1.5S17.33,17 16.5,17z" />
+                </svg>
+                Metride
+            </a>
+
+            <!-- Desktop Links (Hidden on Mobile) -->
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="help.html" class="active" style="color: var(--primary-blue);">Help</a>
+            </div>
+
+            <!-- Always Visible Buttons -->
+            <div class="nav-buttons" style="display: flex; align-items: center; gap: 16px;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                    <!-- Icon injected by JS -->
+                </button>
+                <a href="#" class="btn btn-primary btn-glow" style="padding: 8px 16px; font-size: 0.9rem;">Get App</a>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" aria-label="Toggle navigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" style="min-height: 40vh; padding-bottom: 20px; margin-top: 100px;">
+        <div class="container text-center">
+            <h1 class="fade-in-up">How can we help?</h1>
+            <p class="fade-in-up stagger-1">Find answers to common questions about using Metride.</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top: 0;">
+        <div class="container faq-grid fade-in-up stagger-2">
+
+            <div class="faq-item">
+                <div class="faq-question">Does Metride work without internet?</div>
+                <p>Yes. Route finding and the station database are stored locally on your device, so you can search
+                    routes and check fares fully offline. Some features like live map updates or background sync may
+                    require a brief internet connection.</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Why does the app need my location?</div>
+                <p>Location access is used to:</p>
+                <ul style="margin-left: 20px; list-style-type: disc; margin-bottom: 15px;">
+                    <li>Find the nearest metro station</li>
+                    <li>Trigger reliable station alarms as you approach your stop</li>
+                </ul>
+                <p>Your location is used only when these features are active and is not continuously tracked.</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Why isn’t my alarm ringing?</div>
+                <p>Please ensure Metride has Background Location and Notification permissions enabled.</p>
+                <p>On some Android devices, aggressive battery optimization may stop alarms from running. We recommend
+                    excluding Metride from battery optimization in your system settings.</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is the data for my city accurate?</div>
+                <p>We regularly update station and route data. If you notice a new station or a route change, contact us
+                    and we’ll verify and update it as quickly as possible.</p>
+            </div>
+
+            <!-- Support Actions -->
+            <div
+                style="margin-top: 60px; text-align: center; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn btn-primary btn-glow" style="padding: 12px 24px;">Contact Support</a>
+                <button id="battery-guide-btn" class="btn btn-outline"
+                    style="padding: 12px 24px; border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-main); text-decoration: none; cursor: pointer; background: transparent;">Battery
+                    Optimization Guide</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Battery Guide Modal -->
+    <div id="battery-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2 style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                    Make sure your station alarm works
+                </h2>
+                <p>Some Android phones aggressively stop apps in the background. Follow these steps once to ensure
+                    Metride alarms work reliably.</p>
+            </div>
+
+            <div class="modal-steps">
+                <div class="step-item">
+                    <div class="step-title">Step 1: Disable Battery Optimization</div>
+                    <p>Open <b>Settings</b> &rarr; <b>Battery</b>. Find <b>Metride</b> and select <b>Unrestricted /
+                            Don't optimize</b>.</p>
+                    <div class="step-note">&#11044; This allows alarms to run even when the screen is off.</div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-title">Step 2: Allow Background Location</div>
+                    <p>Go to <b>Settings</b> &rarr; <b>Location</b> &rarr; <b>App Permissions</b>. Select <b>Metride</b>
+                        and set to <b>Allow all the time</b>.</p>
+                    <div class="step-note">&#11044; Required for wake-up alarms near your station.</div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-title">Step 3: Allow Notifications</div>
+                    <p>Go to <b>Settings</b> &rarr; <b>Notifications</b>. Find <b>Metride</b> and enable <b>All
+                            notifications</b>.</p>
+                </div>
+
+                <div class="step-item optional">
+                    <div class="step-title">Step 4 (Optional): Lock in Recents</div>
+                    <p>Open recent apps overview. Long-press <b>Metride</b> and tap <b>Lock / Pin</b>.</p>
+                    <div class="step-note">&#11212; Recommended for Xiaomi, Vivo, Oppo, and Samsung devices.</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-full-width modal-action-close">Got it</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path fill="currentColor"
+                                d="M12,2C8,2 4,2.5 4,6v9.5C4,17.43 5.57,19 7.5,19L6,20.5v0.5h2l2,-2h4l2,2h2v-0.5L16.5,19c1.93,0 3.5,-1.57 3.5,-3.5V6C20,2.5 16,2 12,2zM7.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5S6.67,14 7.5,14s1.5,0.67 1.5,1.5S8.33,17 7.5,17zM11,10H6V6h5V10zM13,10V6h5v4H13zM16.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5s1.5,0.67 1.5,1.5S17.33,17 16.5,17z" />
+                        </svg>
+                        Metride
+                    </h4>
+                    <p style="font-size: 0.95rem; max-width: 300px; color: #94A3B8;">The smart metro companion for
+                        modern India. Never miss your stop again.</p>
+
+                    <div class="social-links">
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-12.7 12.5S.2 5.3 7.8 4.5c2.1-.2 3.2-.4 4.4 1.2 1.6-1.3 3.2-3 5-3.3 2.1-.3 1.8 1.6 1.8 1.6s1.2-1.1 2.2-.7c1 1 1 1 1 1z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                                <rect width="4" height="12" x="2" y="9" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <span>Product</span>
+                    <a href="#">Download App</a>
+                    <a href="https://delhimetrorail.com/network_map" target="_blank">DMRC Metro Map</a>
+                </div>
+
+                <div class="footer-links">
+                    <span>Support</span>
+                    <a href="help.html">Help Center</a>
+                    <a href="#">Report Issue</a>
+                    <a href="#">Contact Us</a>
+                </div>
+
+                <div class="footer-links">
+                    <span>Legal</span>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 Metride Inc. All rights reserved. Made with ❤️ for commutters.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
