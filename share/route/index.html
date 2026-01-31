@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Metride - Viewing Route</title>
+    <meta name="description" content="View shared metro route on Metride app." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .route-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 480px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: center;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        [data-theme="dark"] .route-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .route-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            box-shadow: 0 10px 30px rgba(58, 152, 185, 0.3);
+            color: white;
+        }
+
+        .route-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .route-desc {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .btn-full {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: rgba(58, 152, 185, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Footer overrides for this specialized page */
+        .mini-footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+    </style>
+    <script>
+        window.addEventListener('scroll', () => {
+            // Dummy listener to prevent ReferenceError if script.js tries to attach to non-existent track
+        });
+
+        window.onload = function () {
+            // Get the current URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromId = urlParams.get('fromId');
+            const toId = urlParams.get('toId');
+            const routeId = urlParams.get('routeId');
+
+            // Construct the deep link URL (android fallback scheme)
+            let deepLink = `metride://share/route?fromId=${fromId}&toId=${toId}`;
+            if (routeId) {
+                deepLink += `&routeId=${routeId}`;
+            }
+
+            // Attempt to open the app automatically
+            if (fromId && toId) {
+                // Optional: Try to redirect to custom scheme after a slight delay
+                // window.location.href = deepLink;
+                const appBtn = document.getElementById('open-app-btn');
+                if (appBtn) appBtn.href = deepLink;
+            } else {
+                const appBtn = document.getElementById('open-app-btn');
+                if (appBtn) appBtn.style.display = 'none';
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <!-- Animated Background Gradient Orbs -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="../../index.html" class="logo">
+                <img src="../../images/logo.svg" alt="Metride Logo" width="24" height="24" />
+                Metride
+            </a>
+
+            <!-- Minimal Nav Actions -->
+            <div class="nav-buttons">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="route-card">
+            <div class="route-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                    <path d="M21 3v5h-5"></path>
+                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                    <path d="M3 21v-5h5"></path>
+                </svg>
+            </div>
+
+            <h1 class="route-title">Shared Route</h1>
+            <p class="route-desc">
+                You've been sent a metro route. Open it in the Metride app to see details, track your journey, and get
+                station alerts.
+            </p>
+
+            <div class="action-buttons">
+                <a id="open-app-btn" href="#" class="btn btn-primary btn-glow btn-full">
+                    Open in Metride
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.metride.metro"
+                    class="btn btn-outline btn-full">
+                    Download App
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mini-footer">
+        &copy; 2026 Metride Inc.
+    </footer>
+
+    <script src="../../script.js"></script>
+</body>
+
+</html>
