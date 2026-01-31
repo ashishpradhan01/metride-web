@@ -1,951 +1,548 @@
 <!doctype html>
 <html lang="en" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Metride - Smart Metro Navigation</title>
-    <meta
-      name="description"
-      content="The ultimate metro companion for India. Find routes offline, get station alarms, and track live journeys."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-  </head>
 
-  <body>
-    <!-- Scroll Journey Tracker -->
-    <div class="scroll-tracker-container">
-      <div class="metro-track"></div>
-      <div id="metro-train" class="metro-train-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            fill="currentColor"
-            d="M12,2C8,2 4,2.5 4,6v9.5C4,17.43 5.57,19 7.5,19L6,20.5v0.5h2l2,-2h4l2,2h2v-0.5L16.5,19c1.93,0 3.5,-1.57 3.5,-3.5V6C20,2.5 16,2 12,2zM7.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5S6.67,14 7.5,14s1.5,0.67 1.5,1.5S8.33,17 7.5,17zM11,10H6V6h5V10zM13,10V6h5v4H13zM16.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5s1.5,0.67 1.5,1.5S17.33,17 16.5,17z"
-          />
-        </svg>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metride - Smart Metro Navigation</title>
+  <meta name="description"
+    content="The ultimate metro companion for India. Find routes offline, get station alarms, and track live journeys." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+</head>
+
+<body>
+  <!-- Animated Background Gradient Orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Scroll Journey Tracker -->
+  <div class="scroll-tracker-container">
+    <div class="metro-track"></div>
+    <div id="metro-train" class="metro-train-icon">
+      <img src="images/logo.svg" alt="Metride Logo" width="24" height="24" />
+    </div>
+    <div id="station-popup" class="station-popup">
+      <span class="popup-label">Arriving at</span>
+      <span id="popup-text" class="popup-station">Start</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.svg" alt="Metride Logo" width="24" height="24" />
+        Metride
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="help.html">Help</a>
       </div>
-      <div id="station-popup" class="station-popup">
-        <span class="popup-label">Arriving at</span>
-        <span id="popup-text" class="popup-station">Start</span>
+
+      <!-- Always Visible Buttons -->
+      <div class="nav-buttons">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"></button>
+        <a href="#download" class="btn btn-primary btn-glow btn-nav">Get App</a>
+        <button class="mobile-menu-btn" aria-label="Toggle navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
       </div>
     </div>
+  </nav>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="index.html" class="logo">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="0.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              fill="currentColor"
-              d="M12,2C8,2 4,2.5 4,6v9.5C4,17.43 5.57,19 7.5,19L6,20.5v0.5h2l2,-2h4l2,2h2v-0.5L16.5,19c1.93,0 3.5,-1.57 3.5,-3.5V6C20,2.5 16,2 12,2zM7.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5S6.67,14 7.5,14s1.5,0.67 1.5,1.5S8.33,17 7.5,17zM11,10H6V6h5V10zM13,10V6h5v4H13zM16.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5s1.5,0.67 1.5,1.5S17.33,17 16.5,17z"
-            />
-          </svg>
-          Metride
-        </a>
-
-        <!-- Desktop Links (Hidden on Mobile) -->
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="help.html">Help</a>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <div class="hero-badge fade-in-up">
+          <span class="badge-dot"></span>
+          <span>v1.0 Now Available</span>
         </div>
 
-        <!-- Always Visible Buttons -->
-        <div
-          class="nav-buttons"
-          style="display: flex; align-items: center; gap: 16px"
-        >
-          <button
-            id="theme-toggle"
-            class="theme-toggle"
-            aria-label="Toggle Dark Mode"
-          >
-            <!-- Icon injected by JS -->
-          </button>
-          <a
-            href="#"
-            class="btn btn-primary btn-glow"
-            style="padding: 8px 16px; font-size: 0.9rem"
-            >Get App</a
-          >
+        <h1 class="fade-in-up stagger-1">
+          Never miss your stop,<br />
+          <span class="text-gradient-animated">Ever again.</span>
+        </h1>
 
-          <!-- Mobile Menu Button -->
-          <button class="mobile-menu-btn" aria-label="Toggle navigation">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="18" x2="21" y2="18" />
+        <p class="hero-subtitle fade-in-up stagger-2">
+          The smart metro companion that works offline. Get route maps, live
+          tracking, and wake-up alarms before your station arrives.
+        </p>
+
+        <div class="hero-buttons fade-in-up stagger-3">
+          <a href="#download" class="btn btn-primary btn-glow btn-hero">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.84L14.54,13.35L16.81,15.12M20.3,12C20.3,12.96 19.6,13.61 18.2,14.37L17.73,14.63L15.39,12.8L17.73,10.97L18.2,11.23C19.6,12 20.3,12 20.3,12M16.81,8.88L14.54,10.65L6.05,2.16L16.81,8.88Z" />
             </svg>
-          </button>
+            <div>
+              <span class="btn-sublabel">Get it on</span>
+              <span class="btn-mainlabel">Google Play</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="hero-trust fade-in-up stagger-4">
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+            </svg>
+            <span>4.8 Rating</span>
+          </div>
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>10k+ Users</span>
+          </div>
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+              </path>
+            </svg>
+            <span>100% Free</span>
+          </div>
         </div>
       </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container hero-content">
-        <div class="hero-text">
-          <div class="hero-badge fade-in-up">
-            <span class="badge-dot"></span>
-            <span>v1.0 Now Available</span>
+      <div class="hero-visual fade-in-up stagger-2">
+        <div class="phone-mockup">
+          <div class="phone-glow"></div>
+          <svg class="phone-svg" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="screenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color: #f5f9fc; stop-opacity: 1" />
+                <stop offset="100%" style="stop-color: #ebf4fa; stop-opacity: 1" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <rect class="phone-body-bg" x="10" y="10" width="280" height="580" rx="35" />
+
+            <g transform="translate(20, 20)">
+              <rect class="screen-bg" width="260" height="560" rx="25" />
+
+              <!-- Scene 1: Route Confusion -->
+              <g id="scene-confusion" class="scene">
+                <path class="chaos-line line-1" d="M30,100 Q130,50 80,200 T200,300" stroke="#94A3B8" stroke-width="3"
+                  fill="none" stroke-linecap="round" />
+                <path class="chaos-line line-2" d="M220,80 Q50,150 150,250 T50,400" stroke="#94A3B8" stroke-width="3"
+                  fill="none" stroke-linecap="round" />
+                <path class="chaos-line line-3" d="M40,400 Q100,300 180,350 T230,200" stroke="#94A3B8" stroke-width="3"
+                  fill="none" stroke-linecap="round" />
+
+                <circle class="chaos-dot dot-1" cx="30" cy="100" r="4" fill="#3A98B9" />
+                <circle class="chaos-dot dot-2" cx="200" cy="300" r="4" fill="#F44336" />
+                <circle class="chaos-dot dot-3" cx="50" cy="400" r="4" fill="#FFB800" />
+              </g>
+
+              <!-- Scene 2: Smart Processing -->
+              <g id="scene-processing" class="scene">
+                <circle class="ripple" cx="130" cy="280" r="20" fill="none" stroke="#3A98B9" stroke-width="2"
+                  opacity="0" />
+                <circle class="ripple-delayed" cx="130" cy="280" r="20" fill="none" stroke="#7ed0ec" stroke-width="2"
+                  opacity="0" />
+
+                <path id="clean-route" class="route-path" d="M130,100 L130,280 L130,460" stroke="#3A98B9"
+                  stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="400" stroke-dashoffset="400" />
+
+                <g id="fastest-badge" class="badge" opacity="0" transform="translate(160, 150)">
+                  <rect width="80" height="24" rx="12" fill="#FFB800" />
+                  <text x="40" y="16" font-family="'Inter', sans-serif" font-size="10" font-weight="bold" fill="white"
+                    text-anchor="middle">FASTEST</text>
+                </g>
+              </g>
+
+              <!-- Scene 3: Live Journey -->
+              <g id="scene-live" class="scene">
+                <circle class="station stop-1" cx="130" cy="100" r="6" fill="#3A98B9" />
+                <circle class="station stop-2" cx="130" cy="280" r="6" fill="#3A98B9" />
+                <circle class="station stop-3" cx="130" cy="460" r="6" fill="#1E2528" stroke="#3A98B9"
+                  stroke-width="2" />
+
+                <circle id="moving-train" cx="130" cy="100" r="8" fill="#3A98B9" stroke="white" stroke-width="2">
+                  <animate attributeName="cy" from="100" to="460" dur="2s" begin="3.5s" fill="freeze" calcMode="spline"
+                    keySplines="0.42 0 0.58 1" />
+                </circle>
+
+                <g id="next-stop-card" transform="translate(30, 380)" opacity="0">
+                  <rect class="card-bg" width="200" height="60" rx="12" filter="url(#glow)" />
+                  <text x="20" y="25" font-family="'Inter', sans-serif" font-size="10" class="card-label">NEXT
+                    STOP</text>
+                  <text x="20" y="45" font-family="'Outfit', sans-serif" font-size="16" font-weight="bold"
+                    class="card-title">Rajiv Chowk</text>
+                  <text x="140" y="45" font-family="'Outfit', sans-serif" font-size="14" font-weight="bold"
+                    class="card-time">2 min</text>
+                </g>
+
+                <g id="alarm-icon" transform="translate(180, 50) scale(0)" opacity="0">
+                  <circle cx="15" cy="15" r="15" fill="#F44336" />
+                  <path
+                    d="M15 8L17 12H13L15 8ZM15 22C13.8954 22 13 21.1046 13 20H17C17 21.1046 16.1046 22 15 22ZM21 17H9V11C9 7.68629 11.6863 5 15 5C18.3137 5 21 7.68629 21 11V17Z"
+                    fill="white" />
+                </g>
+              </g>
+
+              <!-- Scene 4: Alarm / Arrived Screen -->
+              <g id="scene-final" class="scene" opacity="0">
+                <g transform="translate(130, 260)">
+                  <circle class="alarm-ripple delay-2" r="40" fill="none" stroke="#FFB800" stroke-width="2" />
+                  <circle class="alarm-ripple delay-1" r="40" fill="none" stroke="#FFB800" stroke-width="2" />
+                  <circle class="alarm-ripple" r="40" fill="none" stroke="#FFB800" stroke-width="2" />
+
+                  <circle r="35" fill="#FFB800" />
+                  <path transform="translate(-12, -12) scale(1)"
+                    d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+                    fill="white" />
+                </g>
+
+                <text x="130" y="100" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#6F7D8C"
+                  text-anchor="middle" letter-spacing="1">YOU'VE ARRIVED</text>
+                <text x="130" y="140" font-family="'Outfit', sans-serif" font-size="24" font-weight="800"
+                  class="card-title-alarm" text-anchor="middle">Rajiv Chowk</text>
+
+                <g transform="translate(50, 480)">
+                  <rect class="swipe-bg" width="160" height="50" rx="25" fill="#E0E7ED" opacity="0.5" />
+                  <text x="95" y="30" font-family="'Inter', sans-serif" font-size="12" class="swipe-text"
+                    text-anchor="middle" font-weight="600">Swipe to dismiss</text>
+
+                  <g class="swipe-hint">
+                    <circle cx="25" cy="25" r="21" fill="#FFB800" />
+                    <path d="M21 20 L27 25 L21 30" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <rect x="110" y="30" width="80" height="20" rx="10" fill="#1E2528" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <p class="stats-label">TRUSTED BY COMMUTERS ACROSS INDIA</p>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number" data-count="250">250</span><span class="stat-number">+</span>
+          <span class="stat-desc">Metro Stations</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="10">10</span><span class="stat-number">k+</span>
+          <span class="stat-desc">Daily Routes</span>
+        </div>
+        <!-- <div class="stat-item">
+          <span class="stat-number">4.8</span>
+          <span class="stat-desc">App Rating</span>
+        </div> -->
+        <div class="stat-item">
+          <span class="stat-number" data-count="100">99</span><span class="stat-number">%</span>
+          <span class="stat-desc">Offline Capable</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problems Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">The Problem</span>
+        <h2>The Daily Metro Struggle</h2>
+        <p>We've all been there.</p>
+      </div>
+
+      <div class="problems-grid">
+        <div class="problem-card">
+          <div class="problem-img-wrapper">
+            <img src="images/problem-confused-inside.png" alt="Confused inside metro" loading="lazy" />
           </div>
+          <h3>Confusing Routes?</h3>
+          <p>Metro maps feel like spaghetti — and there's no signal underground.</p>
+        </div>
 
-          <h1 class="fade-in-up stagger-1">
-            Never miss your stop,<br />
-            <span class="text-gradient-animated">Ever again.</span>
-          </h1>
+        <div class="problem-card">
+          <div class="problem-img-wrapper">
+            <img src="images/problem-missed-station.png" alt="Missed station" loading="lazy" />
+          </div>
+          <h3>Missed Stops?</h3>
+          <p>Fall asleep or get distracted and end up 5 stations away.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <p class="hero-subtitle fade-in-up stagger-2">
-            The smart metro companion that works offline. Get route maps, live
-            tracking, and wake-up alarms before your station arrives.
-          </p>
+  <!-- How It Works Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">How It Works</span>
+        <h2>Commute in 3 Easy Steps</h2>
+        <p>Metride simplifies your journey from start to finish.</p>
+      </div>
 
-          <div class="hero-buttons fade-in-up stagger-3">
-            <a href="#" class="btn btn-primary btn-glow">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                style="margin-right: 12px"
-              >
-                <path
-                  d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.84L14.54,13.35L16.81,15.12M20.3,12C20.3,12.96 19.6,13.61 18.2,14.37L17.73,14.63L15.39,12.8L17.73,10.97L18.2,11.23C19.6,12 20.3,12 20.3,12M16.81,8.88L14.54,10.65L6.05,2.16L16.81,8.88Z"
-                />
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Select Station</h3>
+          <p>Enter your destination. Our offline engine finds the fastest route instantly.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Relax & Ride</h3>
+          <p>Read a book or take a nap. We track your train's live progress.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Get Notified</h3>
+          <p>Receive a gentle alarm before your stop arrives.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Features Showcase -->
+  <section class="section section-features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Features</span>
+        <h2>Metride is the Solution</h2>
+      </div>
+
+      <!-- Feature 1: Alarms -->
+      <div class="feature-split">
+        <div class="feature-text">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="13" r="8" />
+              <path d="M12 9v4l2 2" />
+              <path d="M5 3 2 6" />
+              <path d="m22 6-3-3" />
+              <path d="M6.38 18.7 4 21" />
+              <path d="M17.64 18.67 20 21" />
+            </svg>
+          </div>
+          <h3>Smart Station Alarms</h3>
+          <p>Nap through the ride. Metride tracks your journey and wakes you up just before your station.</p>
+          <ul class="feature-list">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              <div style="text-align: left">
-                <span
-                  style="
-                    display: block;
-                    font-size: 0.7em;
-                    opacity: 0.9;
-                    font-weight: normal;
-                  "
-                  >Get it on</span
-                >
-                <span style="font-weight: 700; font-size: 1.1em"
-                  >Google Play</span
-                >
-              </div>
+              Gentle wake-up notifications
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Customizable alarm timing
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Works completely offline
+            </li>
+          </ul>
+        </div>
+        <div class="feature-image">
+          <div class="phone-frame">
+            <img src="images/feature-alarm.png" alt="Station Alarm Feature" class="img-responsive" loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2: Notifications -->
+      <div class="feature-split reverse">
+        <div class="feature-text">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h3>Live Journey Tracking</h3>
+          <p>Get real-time updates on your lock screen. Know exactly how many minutes are left until your stop.</p>
+          <ul class="feature-list">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Real-time station countdown
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Lock screen updates
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Battery efficient tracking
+            </li>
+          </ul>
+        </div>
+        <div class="feature-image">
+          <div class="phone-frame">
+            <img src="images/feature-notification.png" alt="Notification Feature" class="img-responsive"
+              loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Features Grid -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <h3>Offline Route Finding</h3>
+          <p>No signal in the tunnel? Metride finds routes and fares completely offline.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="3 11 22 2 13 21 11 13 3 11" />
+            </svg>
+          </div>
+          <h3>First & Last Mile</h3>
+          <p>Find the nearest gate and accurate walking directions to the platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section" id="download">
+    <div class="cta-card">
+      <div class="cta-glow"></div>
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to upgrade your commute?</h2>
+          <p>Join thousands of commuters who travel smarter, not harder. Download Metride today.</p>
+          <a href="#" class="btn btn-primary btn-glow btn-cta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.84L14.54,13.35L16.81,15.12M20.3,12C20.3,12.96 19.6,13.61 18.2,14.37L17.73,14.63L15.39,12.8L17.73,10.97L18.2,11.23C19.6,12 20.3,12 20.3,12M16.81,8.88L14.54,10.65L6.05,2.16L16.81,8.88Z" />
+            </svg>
+            Get Started for Free
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <h4>
+            <img src="images/logo.svg" alt="Metride Logo" width="28" height="28" />
+            Metride
+          </h4>
+          <p>The smart metro companion for modern India. Never miss your stop again.</p>
+
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-12.7 12.5S.2 5.3 7.8 4.5c2.1-.2 3.2-.4 4.4 1.2 1.6-1.3 3.2-3 5-3.3 2.1-.3 1.8 1.6 1.8 1.6s1.2-1.1 2.2-.7c1 1 1 1 1 1z" />
+              </svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect width="4" height="12" x="2" y="9" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
             </a>
           </div>
         </div>
 
-        <div class="hero-visual fade-in-up stagger-2">
-          <!-- Abstract graphical representation of app -->
-          <div class="phone-mockup">
-            <svg
-              class="phone-svg"
-              viewBox="0 0 300 600"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <!-- Definitions for gradients/masks -->
-              <defs>
-                <linearGradient
-                  id="screenGradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="0%"
-                  y2="100%"
-                >
-                  <stop
-                    offset="0%"
-                    style="stop-color: #f5f9fc; stop-opacity: 1"
-                  />
-                  <stop
-                    offset="100%"
-                    style="stop-color: #ebf4fa; stop-opacity: 1"
-                  />
-                </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
+        <div class="footer-links">
+          <span>Product</span>
+          <a href="#">Download App</a>
+          <a href="https://delhimetrorail.com/network_map" target="_blank">DMRC Metro Map</a>
+        </div>
 
-              <!-- Phone Body -->
-              <rect
-                class="phone-body-bg"
-                x="10"
-                y="10"
-                width="280"
-                height="580"
-                rx="35"
-              />
+        <div class="footer-links">
+          <span>Support</span>
+          <a href="help.html">Help Center</a>
+          <a href="https://forms.gle/i8DBvCzkoqjPLidv6" target="_blank">Report Issue</a>
+          <a href="mailto:support@metride.in">Contact Us</a>
+        </div>
 
-              <!-- Screen Area (Clipped content goes here) -->
-              <g transform="translate(20, 20)">
-                <rect class="screen-bg" width="260" height="560" rx="25" />
-
-                <!-- Scene 1: Route Confusion (Groups of random lines) -->
-                <g id="scene-confusion" class="scene">
-                  <path
-                    class="chaos-line line-1"
-                    d="M30,100 Q130,50 80,200 T200,300"
-                    stroke="#94A3B8"
-                    stroke-width="3"
-                    fill="none"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    class="chaos-line line-2"
-                    d="M220,80 Q50,150 150,250 T50,400"
-                    stroke="#94A3B8"
-                    stroke-width="3"
-                    fill="none"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    class="chaos-line line-3"
-                    d="M40,400 Q100,300 180,350 T230,200"
-                    stroke="#94A3B8"
-                    stroke-width="3"
-                    fill="none"
-                    stroke-linecap="round"
-                  />
-
-                  <!-- Confused dots -->
-                  <circle
-                    class="chaos-dot dot-1"
-                    cx="30"
-                    cy="100"
-                    r="4"
-                    fill="#3A98B9"
-                  />
-                  <circle
-                    class="chaos-dot dot-2"
-                    cx="200"
-                    cy="300"
-                    r="4"
-                    fill="#F44336"
-                  />
-                  <circle
-                    class="chaos-dot dot-3"
-                    cx="50"
-                    cy="400"
-                    r="4"
-                    fill="#FFB800"
-                  />
-                </g>
-
-                <!-- Scene 2: Smart Processing (Scanning/Ripple) -->
-                <g id="scene-processing" class="scene">
-                  <circle
-                    class="ripple"
-                    cx="130"
-                    cy="280"
-                    r="20"
-                    fill="none"
-                    stroke="#3A98B9"
-                    stroke-width="2"
-                    opacity="0"
-                  />
-                  <circle
-                    class="ripple-delayed"
-                    cx="130"
-                    cy="280"
-                    r="20"
-                    fill="none"
-                    stroke="#7ed0ec"
-                    stroke-width="2"
-                    opacity="0"
-                  />
-
-                  <!-- Clean Route Path (Hidden initially) -->
-                  <path
-                    id="clean-route"
-                    class="route-path"
-                    d="M130,100 L130,280 L130,460"
-                    stroke="#3A98B9"
-                    stroke-width="6"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-dasharray="400"
-                    stroke-dashoffset="400"
-                  />
-
-                  <!-- Gold Highlight Badge -->
-                  <g
-                    id="fastest-badge"
-                    class="badge"
-                    opacity="0"
-                    transform="translate(160, 150)"
-                  >
-                    <rect width="80" height="24" rx="12" fill="#FFB800" />
-                    <text
-                      x="40"
-                      y="16"
-                      font-family="'Inter', sans-serif"
-                      font-size="10"
-                      font-weight="bold"
-                      fill="white"
-                      text-anchor="middle"
-                    >
-                      FASTEST
-                    </text>
-                  </g>
-                </g>
-
-                <!-- Scene 3: Live Journey -->
-                <g id="scene-live" class="scene">
-                  <!-- Stops -->
-                  <circle
-                    class="station stop-1"
-                    cx="130"
-                    cy="100"
-                    r="6"
-                    fill="#3A98B9"
-                  />
-                  <circle
-                    class="station stop-2"
-                    cx="130"
-                    cy="280"
-                    r="6"
-                    fill="#3A98B9"
-                  />
-                  <circle
-                    class="station stop-3"
-                    cx="130"
-                    cy="460"
-                    r="6"
-                    fill="#1E2528"
-                    stroke="#3A98B9"
-                    stroke-width="2"
-                  />
-
-                  <!-- Live Indicator (Moving Train/Dot) -->
-                  <circle
-                    id="moving-train"
-                    cx="130"
-                    cy="100"
-                    r="8"
-                    fill="#3A98B9"
-                    stroke="white"
-                    stroke-width="2"
-                  >
-                    <animate
-                      attributeName="cy"
-                      from="100"
-                      to="460"
-                      dur="2s"
-                      begin="3.5s"
-                      fill="freeze"
-                      calcMode="spline"
-                      keySplines="0.42 0 0.58 1"
-                    />
-                  </circle>
-
-                  <!-- Next Stop Card (Floating UI) -->
-                  <g
-                    id="next-stop-card"
-                    transform="translate(30, 380)"
-                    opacity="0"
-                  >
-                    <rect
-                      class="card-bg"
-                      width="200"
-                      height="60"
-                      rx="12"
-                      filter="url(#glow)"
-                    />
-                    <text
-                      x="20"
-                      y="25"
-                      font-family="'Inter', sans-serif"
-                      font-size="10"
-                      class="card-label"
-                    >
-                      NEXT STOP
-                    </text>
-                    <text
-                      x="20"
-                      y="45"
-                      font-family="'Outfit', sans-serif"
-                      font-size="16"
-                      font-weight="bold"
-                      class="card-title"
-                    >
-                      Rajiv Chowk
-                    </text>
-                    <text
-                      x="140"
-                      y="45"
-                      font-family="'Outfit', sans-serif"
-                      font-size="14"
-                      font-weight="bold"
-                      class="card-time"
-                    >
-                      2 min
-                    </text>
-                  </g>
-
-                  <!-- Alarm Icon -->
-                  <g
-                    id="alarm-icon"
-                    transform="translate(180, 50) scale(0)"
-                    opacity="0"
-                  >
-                    <circle cx="15" cy="15" r="15" fill="#F44336" />
-                    <path
-                      d="M15 8L17 12H13L15 8ZM15 22C13.8954 22 13 21.1046 13 20H17C17 21.1046 16.1046 22 15 22ZM21 17H9V11C9 7.68629 11.6863 5 15 5C18.3137 5 21 7.68629 21 11V17Z"
-                      fill="white"
-                    />
-                  </g>
-                </g>
-
-                <!-- Scene 4: Confidence (Final Static State simplified) -->
-                <!-- Scene 4: Alarm / Arrived Screen -->
-                <g id="scene-final" class="scene" opacity="0">
-                  <!-- Center: Pulse Effect -->
-                  <g transform="translate(130, 260)">
-                    <circle
-                      class="alarm-ripple delay-2"
-                      r="40"
-                      fill="none"
-                      stroke="#FFB800"
-                      stroke-width="2"
-                    />
-                    <circle
-                      class="alarm-ripple delay-1"
-                      r="40"
-                      fill="none"
-                      stroke="#FFB800"
-                      stroke-width="2"
-                    />
-                    <circle
-                      class="alarm-ripple"
-                      r="40"
-                      fill="none"
-                      stroke="#FFB800"
-                      stroke-width="2"
-                    />
-
-                    <!-- Main Bell Icon Circle -->
-                    <circle r="35" fill="#FFB800" />
-                    <!-- Bell Icon White -->
-                    <path
-                      transform="translate(-12, -12) scale(1)"
-                      d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
-                      fill="white"
-                    />
-                  </g>
-
-                  <!-- Top Text -->
-                  <text
-                    x="130"
-                    y="100"
-                    font-family="'Inter', sans-serif"
-                    font-size="14"
-                    font-weight="700"
-                    fill="#6F7D8C"
-                    text-anchor="middle"
-                    letter-spacing="1"
-                  >
-                    YOU'VE ARRIVED
-                  </text>
-                  <text
-                    x="130"
-                    y="140"
-                    font-family="'Outfit', sans-serif"
-                    font-size="24"
-                    font-weight="800"
-                    class="card-title-alarm"
-                    text-anchor="middle"
-                  >
-                    Rajiv Chowk
-                  </text>
-
-                  <!-- Bottom: Swipe to Dismiss -->
-                  <g transform="translate(50, 480)">
-                    <rect
-                      class="swipe-bg"
-                      width="160"
-                      height="50"
-                      rx="25"
-                      fill="#E0E7ED"
-                      opacity="0.5"
-                    />
-                    <text
-                      x="95"
-                      y="30"
-                      font-family="'Inter', sans-serif"
-                      font-size="12"
-                      class="swipe-text"
-                      text-anchor="middle"
-                      font-weight="600"
-                    >
-                      Swipe to dismiss
-                    </text>
-
-                    <!-- Slider Button -->
-                    <g class="swipe-hint">
-                      <circle cx="25" cy="25" r="21" fill="#FFB800" />
-                      <path
-                        d="M21 20 L27 25 L21 30"
-                        stroke="white"
-                        stroke-width="2"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-
-              <!-- Phone Notion/Camera -->
-              <rect
-                x="110"
-                y="30"
-                width="80"
-                height="20"
-                rx="10"
-                fill="#1E2528"
-              />
-            </svg>
-          </div>
+        <div class="footer-links">
+          <span>Legal</span>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
         </div>
       </div>
-    </section>
-
-    <!-- Trusted / Stats Section -->
-    <section class="stats-section">
-      <div class="container">
-        <p class="stats-label">TRUSTED BY COMMUTERS ACROSS INDIA</p>
-        <div class="stats-grid">
-          <div class="stat-item">
-            <span class="stat-number">250+</span>
-            <span class="stat-desc">Metro Stations</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">10k+</span>
-            <span class="stat-desc">Daily Routes</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">4.8</span>
-            <span class="stat-desc">App Rating</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">100%</span>
-            <span class="stat-desc">Offline Capable</span>
-          </div>
-        </div>
+      <div class="copyright">
+        &copy; 2026 Metride Inc. All rights reserved. Made with ❤️ for commuters.
       </div>
-    </section>
+    </div>
+  </footer>
 
-    <!-- Problems Section -->
-    <section class="section" style="background-color: var(--surface-color)">
-      <div class="container">
-        <div class="text-center" style="margin-bottom: 60px">
-          <h2 style="color: var(--text-main)">The Daily Metro Struggle</h2>
-          <p>We've all been there.</p>
-        </div>
+  <script src="script.js"></script>
+</body>
 
-        <div
-          class="grid"
-          style="
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-          "
-        >
-          <!-- Card 1 -->
-          <div class="problem-card">
-            <div class="problem-img-wrapper">
-              <img
-                src="images/problem-confused-inside.png"
-                alt="Confused inside metro"
-              />
-            </div>
-            <h3>Confusing Routes?</h3>
-            <p class="text-center">
-              Metro maps feel like spaghetti — and there’s no signal
-              underground.
-            </p>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="problem-card">
-            <div class="problem-img-wrapper">
-              <img
-                src="images/problem-missed-station.png"
-                alt="Missed station"
-              />
-            </div>
-            <h3>Missed Stops?</h3>
-            <p class="text-center">
-              Fall asleep or get distracted and end up 5 stations away.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="section">
-      <div class="container">
-        <div class="text-center" style="margin-bottom: 60px">
-          <h2 style="color: var(--text-main)">Commute in 3 Easy Steps</h2>
-          <p>Metride simplifies your journey from start to finish.</p>
-        </div>
-
-        <div class="steps-grid">
-          <!-- Step 1 -->
-          <div class="step-card">
-            <div class="step-number">1</div>
-            <h3>Select Station</h3>
-            <p>
-              Enter your destination. Our offline engine finds the fastest route
-              instantly.
-            </p>
-          </div>
-          <!-- Step 2 -->
-          <div class="step-card">
-            <div class="step-number">2</div>
-            <h3>Relax & Ride</h3>
-            <p>
-              Read a book or take a nap. We track your train's live progress.
-            </p>
-          </div>
-          <!-- Step 3 -->
-          <div class="step-card">
-            <div class="step-number">3</div>
-            <h3>Get Notified</h3>
-            <p>Receive a gentle alarm before your stop arrives.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features Showcase -->
-    <section class="section">
-      <div class="container">
-        <div class="text-center" style="margin-bottom: 80px">
-          <h2 style="color: var(--text-main)">Metride is the Solution</h2>
-        </div>
-
-        <!-- Decorative Curvy Track -->
-        <div class="curvy-track-container">
-          <svg
-            class="curvy-track-svg"
-            viewBox="0 0 800 600"
-            preserveAspectRatio="none"
-          >
-            <!-- Path starts Top Center -> Curve to Left Icon (Alarms) -> Curve to Right Icon (Tracking) -->
-            <path
-              class="curvy-track-path"
-              d="M400,0 C400,80 100,150 100,300 S700,500 700,650"
-              fill="none"
-              stroke="var(--border-color)"
-              stroke-width="3"
-              stroke-dasharray="10 10"
-            />
-            <!-- Animated train dot? Optional later -->
-          </svg>
-        </div>
-
-        <!-- Feature 1: Alarms -->
-        <div class="feature-split">
-          <div class="feature-text">
-            <div class="feature-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="13" r="8" />
-                <path d="M12 9v4l2 2" />
-                <path d="M5 3 2 6" />
-                <path d="m22 6-3-3" />
-                <path d="M6.38 18.7 4 21" />
-                <path d="M17.64 18.67 20 21" />
-              </svg>
-            </div>
-            <h3>Smart Station Alarms</h3>
-            <p>
-              Nap through the ride. Metride tracks your journey and wakes you up
-              just before your station.
-            </p>
-          </div>
-          <div class="feature-image">
-            <div class="phone-frame">
-              <img
-                src="images/feature-alarm.png"
-                alt="Station Alarm Feature"
-                class="img-responsive"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Feature 2: Notifications -->
-        <div class="feature-split reverse">
-          <div class="feature-text">
-            <div class="feature-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-            </div>
-            <h3>Live Journey Tracking</h3>
-            <p>
-              Get real-time updates on your lock screen. Know exactly how many
-              minutes are left until your stop.
-            </p>
-          </div>
-          <div class="feature-image">
-            <div class="phone-frame">
-              <img
-                src="images/feature-notification.png"
-                alt="Notification Feature"
-                class="img-responsive"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Other Features Grid (Offline, etc) -->
-        <div class="features-grid" style="margin-top: 80px">
-          <div class="feature-card feature-left-align">
-            <div class="feature-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-            </div>
-            <h3>Offline Finding</h3>
-            <p>
-              No signal in the tunnel? Metride finds routes and fares completely
-              offline.
-            </p>
-          </div>
-          <div class="feature-card feature-left-align">
-            <div class="feature-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon points="3 11 22 2 13 21 11 13 3 11" />
-              </svg>
-            </div>
-            <h3>First & Last Mile</h3>
-            <p>
-              Find the nearest gate and accurate walking directions to the
-              platform.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section">
-      <div class="container text-center">
-        <h2>Ready to upgrade your commute?</h2>
-        <p
-          style="
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-          "
-        >
-          Join thousands of commuters who travel smarter, not harder. Download
-          Metride today.
-        </p>
-        <a
-          href="#"
-          class="btn btn-primary btn-glow"
-          style="padding: 16px 32px; font-size: 1.1rem"
-          >Get Started for Free</a
-        >
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div>
-            <h4>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="0.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12,2C8,2 4,2.5 4,6v9.5C4,17.43 5.57,19 7.5,19L6,20.5v0.5h2l2,-2h4l2,2h2v-0.5L16.5,19c1.93,0 3.5,-1.57 3.5,-3.5V6C20,2.5 16,2 12,2zM7.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5S6.67,14 7.5,14s1.5,0.67 1.5,1.5S8.33,17 7.5,17zM11,10H6V6h5V10zM13,10V6h5v4H13zM16.5,17c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5s1.5,0.67 1.5,1.5S17.33,17 16.5,17z"
-                />
-              </svg>
-              Metride
-            </h4>
-            <p style="font-size: 0.95rem; max-width: 300px; color: #94a3b8">
-              The smart metro companion for modern India. Never miss your stop
-              again.
-            </p>
-
-            <div class="social-links">
-              <a href="#" class="social-icon" aria-label="Twitter">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-12.7 12.5S.2 5.3 7.8 4.5c2.1-.2 3.2-.4 4.4 1.2 1.6-1.3 3.2-3 5-3.3 2.1-.3 1.8 1.6 1.8 1.6s1.2-1.1 2.2-.7c1 1 1 1 1 1z"
-                  />
-                </svg>
-              </a>
-              <a href="#" class="social-icon" aria-label="Instagram">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
-              </a>
-              <a href="#" class="social-icon" aria-label="LinkedIn">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-                  />
-                  <rect width="4" height="12" x="2" y="9" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div class="footer-links">
-            <span>Product</span>
-            <a href="#">Download App</a>
-            <a href="https://delhimetrorail.com/network_map" target="_blank"
-              >DMRC Metro Map</a
-            >
-          </div>
-
-          <div class="footer-links">
-            <span>Support</span>
-            <a href="help.html">Help Center</a>
-            <a href="#">Report Issue</a>
-            <a href="mailto:support@metride.in">Contact Us</a>
-          </div>
-
-          <div class="footer-links">
-            <span>Legal</span>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms of Service</a>
-          </div>
-        </div>
-        <div class="copyright">
-          &copy; 2026 Metride Inc. All rights reserved. Made with ❤️ for
-          commutters.
-        </div>
-      </div>
-    </footer>
-
-    <script src="script.js"></script>
-  </body>
 </html>

@@ -279,12 +279,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (triggerPoint >= absoluteTop && triggerPoint < absoluteBottom) {
                     // We are in this section
                     // Map generic section index to our specific names if possible
-                    if (index === 0) currentSectionName = 'Home';
-                    else if (sec.querySelector('.problem-card')) currentSectionName = 'Metro Struggle';
-                    else if (sec.querySelector('.feature-split')) currentSectionName = 'Metride Solution';
-                    else if (sec.querySelector('.features-grid')) currentSectionName = 'Features';
-                    else if (sec.querySelector('h2').innerText.includes('Ready')) currentSectionName = 'Get App';
-                    else currentSectionName = 'Metride Simplifies';
+                    if (index === 0) currentSectionName = 'Never miss again!';
+                    else if (sec.querySelector('.problem-card')) currentSectionName = 'The Problem';
+                    else if (sec.querySelector('.step-card')) currentSectionName = 'How It Works';
+                    else if (sec.querySelector('.feature-split')) currentSectionName = 'Features';
+                    else if (sec.querySelector('.features-grid')) currentSectionName = 'Offline Routing';
+                    else if (sec.querySelector('h2').innerText.includes('Ready')) currentSectionName = 'Ready to Download';
+                    else currentSectionName = 'Ready to Download';
 
                     activeFound = true;
                 }
