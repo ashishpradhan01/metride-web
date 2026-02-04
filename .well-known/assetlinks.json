@@ -1,15 +1,16 @@
 [
-    {
-        "relation": [
-            "delegate_permission/common.handle_all_urls"
-        ],
-        "target": {
-            "namespace": "android_app",
-            "package_name": "com.metride.metro",
-            "sha256_cert_fingerprints": [
-                "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
-                "REPLACE_WITH_RELEASE_KEY_SHA256"
-            ]
-        }
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.metride.metro",
+      "sha256_cert_fingerprints": [
+        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
+        "43:D5:83:49:F6:38:6A:88:21:2A:7D:F7:2F:44:9D:A4:66:5E:E5:41:19:AD:7D:F9:F0:7A:BF:E2:56:24:92:97"
+      ]
     }
+  }
 ]

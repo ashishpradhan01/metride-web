@@ -4,7 +4,9 @@
     "details": [
       {
         "appID": "REPLACE_WITH_TEAM_ID.org.reactjs.native.example.Metride",
-        "paths": ["/setup/route/*"]
+        "paths": [
+          "/share/route/*"
+        ]
       }
     ]
   }
